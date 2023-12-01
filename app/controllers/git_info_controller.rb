@@ -1,0 +1,2 @@
+class GitInfoController < ApplicationController
+end
