@@ -1,0 +1,19 @@
+
+<h1>GitHub Info</h1>
+
+<%= form_tag("/github_info/get_info", method: "get") do %>
+  <label for="github_login">GitHub Login:</label>
+  <%= text_field_tag(:github_login) %>
+  <%= submit_tag("Get Info") %>
+<% end %>
+
+<% if @user_info %>
+  <h2>User Info:</h2>
+  <p>Name: <%= @user_info['name'] %></p>
+  <h2>Repositories:</h2>
+  <ul>
+    <% @repos_info.each do |repo| %>
+      <li><%= repo['name'] %></li>
+    <% end %>
+  </ul>
+<% end %>
