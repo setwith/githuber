@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class GithubInfoController < ApplicationController
-   def index
-  end
+  def index; end
 
   def get_info
     login = params[:github_login]
