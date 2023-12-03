@@ -1,4 +1,4 @@
-# app/graphql/types/repository_type.rb
+# frozen_string_literal: true
 
 module Types
   class RepositoryType < GraphQL::Schema::Object

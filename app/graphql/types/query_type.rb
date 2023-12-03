@@ -1,4 +1,4 @@
-# app/graphql/types/query_type.rb
+# frozen_string_literal: true
 
 require 'net/http'
 require 'json'
@@ -21,21 +21,17 @@ module Types
     def fetch_user_data(login)
       response = Net::HTTP.get_response(URI("https://api.github.com/users/#{login}"))
 
-      if response.is_a?(Net::HTTPSuccess)
-        JSON.parse(response.body.to_s)
-      else
-        raise StandardError, "Failed to fetch user data"
-      end
+      raise StandardError, 'Failed to fetch user data' unless response.is_a?(Net::HTTPSuccess)
+
+      JSON.parse(response.body.to_s)
     end
 
     def fetch_repos_data(login)
       response = Net::HTTP.get_response(URI("https://api.github.com/users/#{login}/repos"))
 
-      if response.is_a?(Net::HTTPSuccess)
-        JSON.parse(response.body.to_s)
-      else
-        raise StandardError, "Failed to fetch repositories data"
-      end
+      raise StandardError, 'Failed to fetch repositories data' unless response.is_a?(Net::HTTPSuccess)
+
+      JSON.parse(response.body.to_s)
     end
   end
 end
