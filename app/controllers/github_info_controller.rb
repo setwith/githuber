@@ -17,7 +17,6 @@ class GithubInfoController < ApplicationController
 
     result = GithuberSchema.execute(query)
     @user_info = result['data']['getUserInfo']
-    # debugger
     render :index
   end
 end

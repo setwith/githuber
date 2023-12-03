@@ -7,23 +7,26 @@
     <%= submit_tag("Get Info") %>
   <% end %>
 
-
-
-  <h2>User Info:</h2>
-  <% if @user_info.present? %>
-    <p>Name: <%= @user_info['name'] %></p>
-
-    <h2>Repositories:</h2>
-    <% if @user_info['repos'].any? %>
-      <ul>
-        <% @user_info['repos'].each do |repo| %>
-          <li><%= repo['name'] %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>No repositories found</p>
-    <% end %>
+  <% if @user_info.nil? %>
+    <p>Please enter a GitHub login in the form</p>
   <% else %>
-    <p class="error-message">Account not found. Please check the GitHub login and try again</p>
+    <% if @user_info['name'].nil? %>
+      <p class="error-message">Name not found for the given GitHub account</p>
+    <% else %>
+      <h2>User Info:</h2>
+
+      <p>Name: <%= @user_info['name'] %></p>
+      
+      <h2>Repositories:</h2>
+      <% if @user_info['repos'].any? %>
+        <ul>
+          <% @user_info['repos'].each do |repo| %>
+            <li><%= repo['name'] %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No repositories found</p>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
