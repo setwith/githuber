@@ -1,4 +1,3 @@
-
 <div id="container">
   <h1>GitHub Info</h1>
 
@@ -8,14 +7,23 @@
     <%= submit_tag("Get Info") %>
   <% end %>
 
-  <% if @user_info %>
-    <h2>User Info:</h2>
+
+
+  <h2>User Info:</h2>
+  <% if @user_info.present? %>
     <p>Name: <%= @user_info['name'] %></p>
+
     <h2>Repositories:</h2>
-    <ul>
-      <% @user_info['repos'].each do |repo| %>
-        <li><%= repo['name'] %></li>
-      <% end %>
-    </ul>
+    <% if @user_info['repos'].any? %>
+      <ul>
+        <% @user_info['repos'].each do |repo| %>
+          <li><%= repo['name'] %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No repositories found</p>
+    <% end %>
+  <% else %>
+    <p class="error-message">Account not found. Please check the GitHub login and try again</p>
   <% end %>
 </div>
