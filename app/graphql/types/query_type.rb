@@ -11,9 +11,13 @@ module Types
     end
 
     def get_user_info(login:)
-      user_data = fetch_user_data(login)
-      repos_data = fetch_repos_data(login)
-      { name: user_data['name'], repos: repos_data }
+      begin
+        user_data = fetch_user_data(login)
+        repos_data = fetch_repos_data(login)
+        { name: user_data['name'], repos: repos_data }
+      rescue StandardError => e
+        { error: e.message }
+      end
     end
 
     private
@@ -21,7 +25,9 @@ module Types
     def fetch_user_data(login)
       response = Net::HTTP.get_response(URI("https://api.github.com/users/#{login}"))
 
-      raise StandardError, 'Failed to fetch user data' unless response.is_a?(Net::HTTPSuccess)
+      unless response.code.to_i == 200
+        raise StandardError, "Failed to fetch user data (HTTP #{response.code}): #{response.message}"
+      end
 
       JSON.parse(response.body.to_s)
     end
@@ -29,9 +35,12 @@ module Types
     def fetch_repos_data(login)
       response = Net::HTTP.get_response(URI("https://api.github.com/users/#{login}/repos"))
 
-      raise StandardError, 'Failed to fetch repositories data' unless response.is_a?(Net::HTTPSuccess)
+      unless response.code.to_i == 200
+        raise StandardError, "Failed to fetch repositories data (HTTP #{response.code}): #{response.message}"
+      end
 
       JSON.parse(response.body.to_s)
     end
+
   end
 end
