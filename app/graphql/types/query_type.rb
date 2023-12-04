@@ -11,13 +11,11 @@ module Types
     end
 
     def get_user_info(login:)
-      begin
-        user_data = fetch_user_data(login)
-        repos_data = fetch_repos_data(login)
-        { name: user_data['name'], repos: repos_data }
-      rescue StandardError => e
-        { error: e.message }
-      end
+      user_data = fetch_user_data(login)
+      repos_data = fetch_repos_data(login)
+      { name: user_data['name'], repos: repos_data }
+    rescue StandardError => e
+      { error: e.message }
     end
 
     private
@@ -41,6 +39,5 @@ module Types
 
       JSON.parse(response.body.to_s)
     end
-
   end
 end
