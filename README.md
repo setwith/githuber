@@ -1,24 +1,54 @@
-# README
+# Githuber
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Githuber is a Ruby on Rails application that allows you to retrieve information about GitHub users and their repositories.
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+1. Clone the repository:
 
-* System dependencies
+```bash
+  git clone https://github.com/setwith/githuber.git
+```
 
-* Configuration
+2. Navigate to the project directory:
 
-* Database creation
+```bash
+  cd githuber
+```
 
-* Database initialization
+3. Install the gems:
 
-* How to run the test suite
+```bash
+  bundle
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+4. Start the server:
 
-* Deployment instructions
+```bash
+  rails s
+```
 
-* ...
+## Usage
+
+1. Visit `http://localhost:3000/` in your web browser.
+
+2. On the homepage, enter the GitHub user's login in the form and click "Get Info."
+
+3. User and repository information will be displayed on the page.
+
+## Tests
+
+Run tests to ensure the correctness of the application:
+
+```bash
+  rspec
+```
+
+## Requirements
+
+This application is developed using:
+
+- Ruby '3.1.2'
+- Rails '~> 7.0.8'
+- GraphQL
+- Rspec for testing
