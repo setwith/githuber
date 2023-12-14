@@ -27,7 +27,7 @@ module Types
         raise StandardError, "Failed to fetch user data (HTTP #{response.code}): #{response.message}"
       end
 
-      JSON.parse(response.body.to_s)
+      parse_response(response, log_key: 'user') 
     end
 
     def fetch_repos_data(login)
@@ -37,7 +37,17 @@ module Types
         raise StandardError, "Failed to fetch repositories data (HTTP #{response.code}): #{response.message}"
       end
 
-      JSON.parse(response.body.to_s)
+      parse_response(response, log_key: 'repos')  
+    end
+
+    def parse_response(response, log_key:)
+      JSON.parse(response.body.to_s).tap do |body|
+        new_logger.tagged('api', 'github', log_key).info(body)
+      end
+    end
+    
+    def new_logger
+      ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     end
   end
 end
