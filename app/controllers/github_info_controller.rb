@@ -18,8 +18,11 @@ class GithubInfoController < ApplicationController
 
     result = GithuberSchema.execute(query)
     p '=========='
+    p query
+    p '=========='
     p result
     p '=========='
+
     @user_info = result['data']['getUserInfo']
     render :index
   end
